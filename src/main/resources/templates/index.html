@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org" />
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
     <title>Kitchen Bob - Home</title>
 </head>
 <body>
-    <h1>My Recipes!</h1>
+    <h1>All Recipes:</h1>
+
+    <tr th:each="recipe : ${recipes}">
+        <td th:text="${recipe.id}">123</td>
+        <td th:text="${recipe.prepTime}">Placeholder</td>
+        <td th:text="${recipe.directions}">Placeholder</td>
+    </tr>
 </body>
 </html>

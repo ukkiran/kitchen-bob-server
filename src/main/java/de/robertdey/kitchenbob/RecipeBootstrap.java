@@ -37,20 +37,17 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         recipe.setServings(3);
 
         Optional<UnitOfMeasure> piecesUOM = unitOfMeasureRepository.findByDescription("Pieces");
-        if (piecesUOM.isPresent()) {
-            Ingredient ingredient = new Ingredient("ripe avocados", new BigDecimal(2), piecesUOM.get(), recipe);
-            recipe.getIngredients().add(ingredient);
-        }
+        piecesUOM.ifPresent(uom ->
+                recipe.addIngredient(new Ingredient("ripe avocados", new BigDecimal(2), uom)));
 
         Optional<UnitOfMeasure> teaspoonUOM = unitOfMeasureRepository.findByDescription("Teaspoon");
-        if (teaspoonUOM.isPresent()) {
-            Ingredient ingredient = new Ingredient("Kosher salt", new BigDecimal("0.5"), teaspoonUOM.get(), recipe);
-            recipe.getIngredients().add(ingredient);
-        }
+        teaspoonUOM.ifPresent(uom ->
+                recipe.addIngredient(new Ingredient("Kosher salt", new BigDecimal("0.5"), uom)));
 
         recipe.setDirections("Cut the avocados in half. Remove seed. Score the inside of the avocado with a blunt knife and scoop out the flesh with a spoon. (See How to Cut and Peel an Avocado.) Place in a bowl.");
         recipe.setDifficulty(Difficulty.EASY);
         recipe.setSource("https://www.simplyrecipes.com/recipes/perfect_guacamole/");
+        recipe.setNotes(new Notes("For a very quick guacamole just take a 1/4 cup of salsa and mix it in with your mashed avocados."));
 
         Optional<Category> categoryOptional = categoryRepository.findByDescription("Mexican");
         categoryOptional.ifPresent(category -> recipe.getCategories().add(category));

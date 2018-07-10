@@ -4,13 +4,18 @@ import de.robertdey.kitchenbob.domain.*;
 import de.robertdey.kitchenbob.repositories.CategoryRepository;
 import de.robertdey.kitchenbob.repositories.RecipeRepository;
 import de.robertdey.kitchenbob.repositories.UnitOfMeasureRepository;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.Optional;
 
+@Slf4j
+@RequiredArgsConstructor
 @Component
 public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -18,18 +23,14 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
     private final CategoryRepository categoryRepository;
     private final UnitOfMeasureRepository unitOfMeasureRepository;
 
-    public RecipeBootstrap(RecipeRepository recipeRepository, CategoryRepository categoryRepository, UnitOfMeasureRepository unitOfMeasureRepository) {
-        this.recipeRepository = recipeRepository;
-        this.categoryRepository = categoryRepository;
-        this.unitOfMeasureRepository = unitOfMeasureRepository;
-    }
-
     @Override
+    @Transactional
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         initData();
     }
 
     private void initData() {
+        log.debug("starting data initialization...");
 
         Recipe recipe = new Recipe();
         recipe.setPrepTime(10);
@@ -53,5 +54,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         categoryOptional.ifPresent(category -> recipe.getCategories().add(category));
 
         recipeRepository.save(recipe);
+
+        log.debug("data initialization complete");
     }
 }

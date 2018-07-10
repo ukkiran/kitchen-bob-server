@@ -20,15 +20,15 @@
                     <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Difficulty</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Link</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="recipe : ${recipes}">
                         <th scope="row" th:text="${recipe.id}"></th>
-                        <td th:text="${recipe.description}"></td>
-                        <td th:text="${recipe.difficulty}"></td>
+                        <td th:text="${recipe.title}"></td>
+                        <td><a href="#" th:href="@{'/recipe/show/' + ${recipe.id}}">View</a></td>
                     </tr>
                     </tbody>
                 </table>

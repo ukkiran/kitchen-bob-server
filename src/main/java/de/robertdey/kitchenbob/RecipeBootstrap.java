@@ -33,6 +33,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         log.debug("starting data initialization...");
 
         Recipe recipe = new Recipe();
+        recipe.setTitle("Perfect Guacamole");
         recipe.setPrepTime(10);
         recipe.setCookTime(0);
         recipe.setServings(3);
@@ -52,6 +53,9 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         recipe.setNotes(new Notes("For a very quick guacamole just take a 1/4 cup of salsa and mix it in with your mashed avocados."));
 
         Optional<Category> categoryOptional = categoryRepository.findByDescription("Mexican");
+        categoryOptional.ifPresent(category -> recipe.getCategories().add(category));
+
+        categoryOptional = categoryRepository.findByDescription("American");
         categoryOptional.ifPresent(category -> recipe.getCategories().add(category));
 
         recipeRepository.save(recipe);

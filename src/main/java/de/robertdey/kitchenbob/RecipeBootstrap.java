@@ -36,6 +36,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         recipe.setPrepTime(10);
         recipe.setCookTime(0);
         recipe.setServings(3);
+        recipe.setDescription("The BEST guacamole! So easy to make with ripe avocados, salt, serrano chiles, cilantro and lime. Garnish with red radishes or jicama. Serve with tortilla chips. Watch how to make guacamole - it's easy!");
 
         Optional<UnitOfMeasure> piecesUOM = unitOfMeasureRepository.findByDescription("Pieces");
         piecesUOM.ifPresent(uom ->

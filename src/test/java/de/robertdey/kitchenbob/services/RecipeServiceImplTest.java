@@ -1,5 +1,7 @@
 package de.robertdey.kitchenbob.services;
 
+import de.robertdey.kitchenbob.converters.RecipeCommandToRecipe;
+import de.robertdey.kitchenbob.converters.RecipeToRecipeCommand;
 import de.robertdey.kitchenbob.domain.Recipe;
 import de.robertdey.kitchenbob.repositories.RecipeRepository;
 import org.junit.Before;
@@ -15,6 +17,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.*;
 
+
 public class RecipeServiceImplTest {
 
     private RecipeServiceImpl recipeService;
@@ -22,11 +25,17 @@ public class RecipeServiceImplTest {
     @Mock
     private RecipeRepository recipeRepository;
 
+    @Mock
+    private RecipeCommandToRecipe recipeCommandToRecipe;
+
+    @Mock
+    private RecipeToRecipeCommand recipeToRecipeCommand;
+
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        recipeService = new RecipeServiceImpl(recipeRepository);
+        recipeService = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
     }
 
     @Test

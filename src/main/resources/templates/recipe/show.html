@@ -14,6 +14,10 @@
     <h1>Bob's Recipe Of The Day</h1>
 
     <div class="card">
+        <img class="card-img-top" th:src="@{'/recipe/' + ${recipe.id} + '/image'}">
+        <div class="card-img-overlay">
+            <a class="btn btn-light float-right" href="#" th:href="@{'/recipe/' + ${recipe.id} + '/image/upload'}">Upload Image</a>
+        </div>
         <div class="card-body">
             <h5 class="card-title">
                 <span th:text="${recipe.title}"></span>

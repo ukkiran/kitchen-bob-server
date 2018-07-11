@@ -15,7 +15,11 @@
 
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title" th:text="${recipe.title}">Card title</h5>
+            <h5 class="card-title">
+                <span th:text="${recipe.title}"></span>
+                <a class="btn btn-primary float-right" href="#" th:href="@{'/recipe/' + ${recipe.id} + '/update'}">Edit</a>
+            </h5>
+
             <h6 class="card-subtitle mb-2 text-muted" th:text="${recipe.description}">Card subtitle</h6>
 
             <div class="badge badge-primary" th:text="@{'prep time: ' + ${recipe.prepTime} + ' min'}"></div>

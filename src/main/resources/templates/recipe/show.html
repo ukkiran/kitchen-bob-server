@@ -18,6 +18,7 @@
             <h5 class="card-title">
                 <span th:text="${recipe.title}"></span>
                 <a class="btn btn-primary float-right" href="#" th:href="@{'/recipe/' + ${recipe.id} + '/update'}">Edit</a>
+                <a class="btn btn-danger float-right" href="#" th:href="@{'/recipe/' + ${recipe.id} + '/delete'}">Delete</a>
             </h5>
 
             <h6 class="card-subtitle mb-2 text-muted" th:text="${recipe.description}">Card subtitle</h6>

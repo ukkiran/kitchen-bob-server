@@ -3,6 +3,7 @@ package de.robertdey.kitchenbob.services;
 import de.robertdey.kitchenbob.converters.RecipeCommandToRecipe;
 import de.robertdey.kitchenbob.converters.RecipeToRecipeCommand;
 import de.robertdey.kitchenbob.domain.Recipe;
+import de.robertdey.kitchenbob.exceptions.NotFoundException;
 import de.robertdey.kitchenbob.repositories.RecipeRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -53,6 +54,15 @@ public class RecipeServiceImplTest {
         verify(recipeRepository, never()).findAll();
     }
 
+    @Test(expected = NotFoundException.class)
+    public void getRecipeByIdNotFound() {
+        Optional<Recipe> recipeOptional = Optional.empty();
+
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+        Recipe recipeReturned = recipeService.findById(1L);
+    }
+
     @Test
     public void getAll() {
         Recipe recipe = new Recipe();
@@ -69,8 +79,7 @@ public class RecipeServiceImplTest {
 
     @Test
     public void deleteById() {
-        Long idToDelete = Long.valueOf(2L);
-        recipeService.deleteById(idToDelete);
+        recipeService.deleteById(2L);
 
         verify(recipeRepository, times(1)).deleteById(anyLong());
     }

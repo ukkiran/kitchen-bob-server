@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>404 Not Found Error</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+</head>
+<body>
+<div class="container-fluid" style="margin-top: 20px">
+    <div class="jumbotron">
+        <h2 class="display-4"><span class="badge badge-danger">404</span> Ooops!</h2>
+        <p class="lead">We went out trying to find what you were searching for. Unfortunately we could not find it. Sorry.</p>
+
+        <div class="alert alert-light" role="alert">
+            <h5 class="alert-heading">Original Error</h5>
+            <p class="lead" th:text="${exception.getMessage()}"></p>
+        </div>
+
+        <hr class="my-4">
+        <a class="btn btn-primary btn-lg" href="/" role="button">Back Home</a>
+    </div>
+</div>
+</body>
+</html>

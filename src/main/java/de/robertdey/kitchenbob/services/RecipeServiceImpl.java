@@ -4,6 +4,7 @@ import de.robertdey.kitchenbob.commands.RecipeCommand;
 import de.robertdey.kitchenbob.converters.RecipeCommandToRecipe;
 import de.robertdey.kitchenbob.converters.RecipeToRecipeCommand;
 import de.robertdey.kitchenbob.domain.Recipe;
+import de.robertdey.kitchenbob.exceptions.NotFoundException;
 import de.robertdey.kitchenbob.repositories.RecipeRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +38,7 @@ public class RecipeServiceImpl implements RecipeService {
         Optional<Recipe> recipeOptional = recipeRepository.findById(id);
 
         if (!recipeOptional.isPresent()) {
-            throw new RuntimeException();
+            throw new NotFoundException("Recipe not found. For Id value: " + id.toString());
         }
 
         return recipeOptional.get();
